@@ -5,42 +5,90 @@ import { motion } from "framer-motion";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { smallImage } from "../util";
+//Images
+import playstation from "../img/playstation.svg";
+import xbox from "../img/xbox.svg";
+import steam from "../img/steam.svg";
+import nintendo from "../img/nintendo.svg";
+import apple from "../img/apple.svg";
+import gamepad from "../img/gamepad.svg";
+//Star Images
+import starEmpty from "../img/star-empty.png";
+import starFull from "../img/star-full.png";
 
-const GameDetail = () => {
+const GameDetail = ({ pathId }) => {
+  //Data
+  const { game, screen, isLoading } = useSelector((state) => state.detail);
+
   const history = useHistory();
   //Exit Detail
   const exitDetailHandler = (e) => {
     const element = e.target;
-    console.log(element);
     if (element.classList.contains("shadow")) {
       document.body.style.overflow = "auto";
       history.push("/");
     }
   };
-  //Data
-  const { game, screen, isLoading } = useSelector((state) => state.detail);
+  //Get Stars
+  const getStars = () => {
+    const stars = [];
+    const rating = Math.round(game.rating);
+    for (let i = 1; i <= 5; i++) {
+      if (i <= rating) {
+        stars.push(<img alt="star" key={i} src={starFull} />);
+        console.log(i);
+      } else {
+        stars.push(<img alt="star" key={i} src={starEmpty} />);
+      }
+    }
+    return stars;
+  };
+
+  //Get platform images
+  const getPlatform = (platform) => {
+    switch (platform) {
+      case "PlayStation 4":
+        return playstation;
+      case "Xbox One":
+        return xbox;
+      case "PC":
+        return steam;
+      case "Nintendo Switch":
+        return nintendo;
+      case "iOS":
+        return apple;
+      default:
+        return gamepad;
+    }
+  };
 
   return (
     <>
       {!isLoading && (
         <CardShadow className="shadow" onClick={exitDetailHandler}>
-          <Detail>
+          <Detail layoutId={pathId}>
             <Stats>
               <div className="rating">
-                <h3>{game.name}</h3>
+                <motion.h3 layoutID={`title ${pathId}`}>{game.name}</motion.h3>
                 <p>Rating: {game.rating}</p>
+                {getStars()}
               </div>
               <Info>
                 <h3>Platforms:</h3>
                 <Platforms>
                   {game.platforms.map((data) => (
-                    <h3 key={data.platform.id}>{data.platform.name}</h3>
+                    <img
+                      key={data.platform.id}
+                      src={getPlatform(data.platform.name)}
+                      alt={data.platform.name}
+                    />
                   ))}
                 </Platforms>
               </Info>
             </Stats>
             <Media>
-              <img
+              <motion.img
+                layoutID={`image ${pathId}`}
                 src={smallImage(game.background_image, 1280)}
                 alt={game.background_image}
               />
@@ -74,6 +122,7 @@ const CardShadow = styled(motion.div)`
   left: 0;
   scrollbar-color: #ff7676 white;
   scrollbar-width: 0.5rem;
+  z-index: 5;
   &::-webkit-scrollbar {
     width: 0.5rem;
   }
@@ -93,6 +142,7 @@ const Detail = styled(motion.div)`
   position: absolute;
   left: 10%;
   color: black;
+  z-index: 10;
   img {
     width: 100%;
   }
@@ -102,6 +152,11 @@ const Stats = styled(motion.div)`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  img {
+    height: 2rem;
+    width: 2rem;
+    display: inline;
+  }
 `;
 
 const Info = styled(motion.div)`
@@ -130,9 +185,9 @@ const Description = styled(motion.div)`
 `;
 
 const Gallery = styled(motion.div)`
-  display: grid;
+  /* display: grid;
   grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
   grid-column-gap: 2rem;
-  grid-row-gap: 2rem;
+  grid-row-gap: 2rem; */
 `;
 export default GameDetail;
