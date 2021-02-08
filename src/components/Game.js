@@ -7,6 +7,8 @@ import { loadDetail } from "../actions/detailActions";
 import { Link } from "react-router-dom";
 //Import Media Resize
 import { smallImage } from "../util";
+//Animations
+import { popIn } from "../animations";
 
 const Game = ({ name, released, image, id }) => {
   const stringPathId = id.toString();
@@ -18,7 +20,13 @@ const Game = ({ name, released, image, id }) => {
   };
 
   return (
-    <StyledGame layoutId={stringPathId} onClick={loadDetailHandler}>
+    <StyledGame
+      variants={popIn}
+      initial="hidden"
+      animate="show"
+      layoutId={stringPathId}
+      onClick={loadDetailHandler}
+    >
       <Link to={`/game/${id}`}>
         <motion.h3 layoutID={`title ${stringPathId}`}>{name}</motion.h3>
         <p>{released}</p>
