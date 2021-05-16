@@ -36,7 +36,7 @@ h3 {
 }
 p {
     font-size: 1.2rem;
-    line-height: 200%;
+    line-height: 160%;
     color: #696969;
 }
 a {

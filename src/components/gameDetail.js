@@ -36,7 +36,7 @@ const GameDetail = ({ pathId }) => {
     for (let i = 1; i <= 5; i++) {
       if (i <= rating) {
         stars.push(<img alt="star" key={i} src={starFull} />);
-        console.log(i);
+        // console.log(i);
       } else {
         stars.push(<img alt="star" key={i} src={starEmpty} />);
       }
@@ -66,10 +66,11 @@ const GameDetail = ({ pathId }) => {
     <>
       {!isLoading && (
         <CardShadow className="shadow" onClick={exitDetailHandler}>
-          <Detail layoutId={pathId}>
+          <Detail layoutId={pathId} onClick={exitDetailHandler}>
             <Stats>
+            <motion.h3 layoutID={`title ${pathId}`}>{game.name}</motion.h3>
+            <div className="flex-container">
               <div className="rating">
-                <motion.h3 layoutID={`title ${pathId}`}>{game.name}</motion.h3>
                 <p>Rating: {game.rating}</p>
                 {getStars()}
               </div>
@@ -85,6 +86,7 @@ const GameDetail = ({ pathId }) => {
                   ))}
                 </Platforms>
               </Info>
+              </div>
             </Stats>
             <Media>
               <motion.img
@@ -135,23 +137,39 @@ const CardShadow = styled(motion.div)`
 `;
 
 const Detail = styled(motion.div)`
-  width: 80%;
+  width: 90%;
   border-radius: 1rem;
-  padding: 2rem 5rem;
+  padding: 1rem;
   background: whitesmoke;
   position: absolute;
-  left: 10%;
+  left: 5%;
   color: black;
   z-index: 10;
+  pointer-events: none;
+
   img {
     width: 100%;
+  }
+
+  .flex-container {
+    display: flex;
+    width: 100%;
+  }
+
+  .rating {
+    padding: 0 1rem;
+    flex: 1;
+    /* background: green; */
   }
 `;
 
 const Stats = styled(motion.div)`
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: space-between;
+  
+  /* justify-content: space-between; */
+  /* background: blue; */
   img {
     height: 2rem;
     width: 2rem;
@@ -161,18 +179,29 @@ const Stats = styled(motion.div)`
 
 const Info = styled(motion.div)`
   text-align: center;
+  padding: 0 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+/* background: blue; */
+  h3 {
+    margin: 0;
+    padding: 0;
+  }
+  
 `;
 
 const Platforms = styled(motion.div)`
   display: flex;
   justify-content: space-evenly;
+  align-items: flex-start;
   img {
-    margin-left: 3rem;
+    margin-left: 1rem;
   }
 `;
 
 const Media = styled(motion.div)`
-  margin-top: 5rem;
+  margin-top: 2rem;
   img {
     width: 100%;
     height: 60vh;
@@ -181,7 +210,9 @@ const Media = styled(motion.div)`
 `;
 
 const Description = styled(motion.div)`
-  margin: 5rem 0;
+  padding: 5rem .5rem;
+  max-width: 50rem;
+  margin: 0 auto;
 `;
 
 const Gallery = styled(motion.div)`
