@@ -6,8 +6,18 @@ export const loadDetail = (id) => async (dispatch) => {
     type: "LOADING_DETAIL",
   });
   
-  const detailData = await axios.get(gameDetailsUrl(id));
-  const screenShotData = await axios.get(gameScreenShotUrl(id));
+  const detailData = await axios.get(gameDetailsUrl(id), {
+    headers: {
+      'Content-Type': 'application/json',
+      'token':'Token efe72b3c598c4e689949cfbb0de1877a'
+    }
+  });
+  const screenShotData = await axios.get(gameScreenShotUrl(id), {
+    headers: {
+      'Content-Type': 'application/json',
+      'token':'Token efe72b3c598c4e689949cfbb0de1877a'
+    }
+  });
 
   dispatch({
     type: "GET_DETAIL",
