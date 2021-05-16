@@ -39,10 +39,10 @@ export const upcomingGamesURL = () => `${base_url}${upcomingGames}`;
 export const newGamesURL = () => `${base_url}${newGames}`;
 
 //GAME DETAILS
-export const gameDetailsUrl = (game_id) => `${base_url}games/${game_id}`;
+export const gameDetailsUrl = (game_id) => `https://proxy-server-austin.herokuapp.com/${base_url}games/${game_id}`;
 //Game Screenshots
 export const gameScreenShotUrl = (game_id) =>
-  `${base_url}games/${game_id}/screenshots`;
+  `https://proxy-server-austin.herokuapp.com/${base_url}games/${game_id}/screenshots`;
 //Searched Game
 export const searchGameURL = (game_name) =>
-  `${base_url}games?key=${API_KEY}&search=${game_name}&page_size=9`;
+  `https://proxy-server-austin.herokuapp.com/${base_url}games?key=${API_KEY}&search=${game_name}&page_size=9`;
