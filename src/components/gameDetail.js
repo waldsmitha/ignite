@@ -68,30 +68,30 @@ const GameDetail = ({ pathId }) => {
         <CardShadow className="shadow" onClick={exitDetailHandler}>
           <Detail layoutId={pathId} onClick={exitDetailHandler}>
             <Stats>
-            <motion.h3 layoutID={`title ${pathId}`}>{game.name}</motion.h3>
-            <div className="flex-container">
-              <div className="rating">
-                <p>Rating: {game.rating}</p>
-                {getStars()}
-              </div>
-              <Info>
-                <h3>Platforms:</h3>
-                <Platforms>
-                  {game.platforms.map((data) => (
-                    <img
-                      key={data.platform.id}
-                      src={getPlatform(data.platform.name)}
-                      alt={data.platform.name}
-                    />
-                  ))}
-                </Platforms>
-              </Info>
+              <motion.h3 layoutID={`title ${pathId}`}>{game.name}</motion.h3>
+              <div className="flex-container">
+                <div className="rating">
+                  <p>Rating: {game.rating}</p>
+                  {getStars()}
+                </div>
+                <Info>
+                  <h3>Platforms:</h3>
+                  <Platforms>
+                    {game.platforms.map((data) => (
+                      <img
+                        key={data.platform.id}
+                        src={getPlatform(data.platform.name)}
+                        alt={data.platform.name}
+                      />
+                    ))}
+                  </Platforms>
+                </Info>
               </div>
             </Stats>
             <Media>
               <motion.img
                 layoutID={`image ${pathId}`}
-                src={smallImage(game.background_image, 1280)}
+                src={game.background_image}
                 alt={game.background_image}
               />
             </Media>
@@ -100,11 +100,7 @@ const GameDetail = ({ pathId }) => {
             </Description>
             <Gallery>
               {screen.results.map((screen) => (
-                <img
-                  src={smallImage(screen.image, 1280)}
-                  key={screen.id}
-                  alt={screen.image}
-                />
+                <img src={screen.image} key={screen.id} alt={screen.image} />
               ))}
             </Gallery>
           </Detail>
@@ -167,7 +163,7 @@ const Stats = styled(motion.div)`
   display: flex;
   flex-direction: column;
   align-items: center;
-  
+
   /* justify-content: space-between; */
   /* background: blue; */
   img {
@@ -183,12 +179,11 @@ const Info = styled(motion.div)`
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
-/* background: blue; */
+  /* background: blue; */
   h3 {
     margin: 0;
     padding: 0;
   }
-  
 `;
 
 const Platforms = styled(motion.div)`
@@ -210,7 +205,7 @@ const Media = styled(motion.div)`
 `;
 
 const Description = styled(motion.div)`
-  padding: 5rem .5rem;
+  padding: 5rem 0.5rem;
   max-width: 50rem;
   margin: 0 auto;
 `;

@@ -30,11 +30,7 @@ const Game = ({ name, released, image, id }) => {
       <Link to={`/game/${id}`}>
         <motion.h3 layoutID={`title ${stringPathId}`}>{name}</motion.h3>
         <p>{released}</p>
-        <motion.img
-          layoutID={`image ${stringPathId}`}
-          src={smallImage(image, 640)}
-          alt={name}
-        />
+        <motion.img layoutID={`image ${stringPathId}`} src={image} alt={name} />
       </Link>
     </StyledGame>
   );
